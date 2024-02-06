@@ -1,1 +1,34 @@
 <h1>Object Detection</h1>
+
+<!-- Form to accept image url -->
+<form action="/object_detection" method="POST">
+  <input type="text" name="image_url" placeholder="Enter Image URL" required />
+  <input type="submit" value="Submit" />
+</form>
+
+<!-- Display the result -->
+{% if result %}
+<!-- Display Image -->
+<h2>Input Image</h2>
+<img src="data:image/png;base64,{{ result.image }}" alt="Input Image" />
+
+<!-- Display Object Detection Results -->
+<h2>Object Detection Results</h2>
+<table border="1">
+  <tr>
+    <th>Object</th>
+    <th>Confidence</th>
+    <th>Location</th>
+  </tr>
+  {% for item in result.list %}
+  <tr>
+    <td>{{ item.Object }}</td>
+    <td>{{ item.Confidence }}</td>
+    <td>{{ item.Location }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Display Elapsed Time -->
+<p>Elapsed Time: {{ result.elapsed_time }} seconds</p>
+{% endif %}

@@ -1,1 +1,24 @@
 <h1>Sentiment Analysis</h1>
+
+<!-- Form to accept a sentence -->
+<form action="/sentiment_analysis" method="POST">
+  <input type="text" name="sentence" placeholder="Enter a sentence" required />
+  <input type="submit" value="Submit" />
+</form>
+
+<!-- Display result = {'label': '...', 'score': ...} -->
+{% if result %}
+<table>
+  <tr>
+    <th>Sentence</th>
+    <th>Label</th>
+    <th>Score</th>
+  </tr>
+  <tr>
+    <td>{{ result['sentence'] }}</td>
+    <td>{{ result['label'] }}</td>
+    <td>{{ result['score'] }}</td>
+  </tr>
+</table>
+
+Time taken: {{ result['elapsed_time'] }} seconds {% endif %}

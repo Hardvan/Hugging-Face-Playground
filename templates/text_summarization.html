@@ -1,1 +1,16 @@
 <h1>Text Summarization</h1>
+
+<!-- Form to accept large text input -->
+<form action="/text_summarization" method="POST">
+  <textarea name="text" rows="10" cols="30"></textarea>
+  <input type="submit" value="Submit" />
+</form>
+
+<!-- Display the result = {'text': ..., 'summary_text': ..., 'elapsed_time': ...} -->
+{% if result %}
+<h2>Input Text</h2>
+<p>{{ result['text'] }}</p>
+<h2>Summary</h2>
+<p>{{ result['summary_text'] }}</p>
+
+Time taken: {{ result['elapsed_time'] }} seconds {% endif %}
