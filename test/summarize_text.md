@@ -19,15 +19,15 @@ The case was referred to the Bronx District Attorney's Office by Immigration and
 Investigation Division. Seven of the men are from so-called "red-flagged" countries, including Egypt, Turkey, Georgia, Pakistan and Mali.
 Her eighth husband, Rashid Rajput, was deported in 2006 to his native Pakistan after an investigation by the Joint Terrorism Task Force.
 If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.
-
+    
 
 ## Input Size
 
-354 words
+358 words
 
 ## Summary
 
-Liana Barrientos, 39, is charged with two counts of offering a false instrument for filing in the first degree. In total, she has been married 10 times, with nine of her marriages occurring between 1999 and 2002. If convicted, she faces up to four years in prison.
+Liana Barrientos, 39, is charged with two counts of "offering a false instrument for filing in the first degree" In total, she has been married 10 times, with nine of her marriages occurring between 1999 and 2002. She is believed to still be married to four men.
 
 ## Summary Size
 

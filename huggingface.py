@@ -124,61 +124,63 @@ def detect_objects(image_url):
     return results_dict
 
 
-def test_sentiment_analysis():
+if __name__ == "__main__":
 
-    print("Testing sentiment analysis...")
+    def test_sentiment_analysis():
 
-    start = time.time()
+        print("Testing sentiment analysis...")
 
-    # Sample input texts
-    input_texts = [
-        "I love this product.",
-        "I hate this product.",
-        "I am not sure about this product.",
-        "I am feeling happy.",
-        "I am feeling sad.",
-        "I am feeling neutral.",
-        "The product has a good quality, but is too expensive.",
-        "The product is cheap, but has a bad quality.",
-        "The product is neither good nor bad."
-    ]
+        start = time.time()
 
-    # Run sentiment analysis on the input texts
-    output = []
-    for text in input_texts:
-        result = sentiment_analysis(text)
-        output.append({
-            "input_text": text,
-            "label": result[0]['label'],
-            "score": result[0]['score']
-        })
+        # Sample input texts
+        input_texts = [
+            "I love this product.",
+            "I hate this product.",
+            "I am not sure about this product.",
+            "I am feeling happy.",
+            "I am feeling sad.",
+            "I am feeling neutral.",
+            "The product has a good quality, but is too expensive.",
+            "The product is cheap, but has a bad quality.",
+            "The product is neither good nor bad."
+        ]
 
-    # Save the results to a markdown file
-    file_name = "test/sentiment_analysis.md"
-    file_heading = "# Test Sentiment Analysis\n\n"
-    table_header = "| Input text | Label | Score |\n"
-    table_divider = "| --- | --- | --- |\n"
-    table_rows = ""
-    for result in output:
-        row = f"| {result['input_text']} | {result['label']} | {result['score']} |\n"
-        table_rows += row
-    markdown_table = file_heading + table_header + table_divider + table_rows
-    with open(file_name, "w") as file:
-        file.write(markdown_table)
+        # Run sentiment analysis on the input texts
+        output = []
+        for text in input_texts:
+            result = sentiment_analysis(text)
+            output.append({
+                "input_text": text,
+                "label": result[0]['label'],
+                "score": result[0]['score']
+            })
 
-    end = time.time()
-    print(f"✅ Test Sentiment Analysis completed in {end - start:.2f} seconds.")
+        # Save the results to a markdown file
+        file_name = "test/sentiment_analysis.md"
+        file_heading = "# Test Sentiment Analysis\n\n"
+        table_header = "| Input text | Label | Score |\n"
+        table_divider = "| --- | --- | --- |\n"
+        table_rows = ""
+        for result in output:
+            row = f"| {result['input_text']} | {result['label']} | {result['score']} |\n"
+            table_rows += row
+        markdown_table = file_heading + table_header + table_divider + table_rows
+        with open(file_name, "w") as file:
+            file.write(markdown_table)
 
+        end = time.time()
+        print(
+            f"✅ Test Sentiment Analysis completed in {end - start:.2f} seconds.")
 
-def test_summarize_text():
+    def test_summarize_text():
 
-    print("Testing summarize text...")
+        print("Testing summarize text...")
 
-    start = time.time()
+        start = time.time()
 
-    # Input news stories
-    news_stories = [
-        """New York (CNN)When Liana Barrientos was 23 years old, she got married in Westchester County, New York.
+        # Input news stories
+        news_stories = [
+            """New York (CNN)When Liana Barrientos was 23 years old, she got married in Westchester County, New York.
 A year later, she got married again in Westchester County, but to a different man and without divorcing her first husband.
 Only 18 days after that marriage, she got hitched yet again. Then, Barrientos declared "I do" five more times, sometimes only within two weeks of each other.
 In 2010, she married once more, this time in the Bronx. In an application for a marriage license, she stated it was her "first and only" marriage.
@@ -195,98 +197,93 @@ The case was referred to the Bronx District Attorney\'s Office by Immigration an
 Investigation Division. Seven of the men are from so-called "red-flagged" countries, including Egypt, Turkey, Georgia, Pakistan and Mali.
 Her eighth husband, Rashid Rajput, was deported in 2006 to his native Pakistan after an investigation by the Joint Terrorism Task Force.
 If convicted, Barrientos faces up to four years in prison.  Her next court appearance is scheduled for May 18.
-"""
-    ]
+    """
+        ]
 
-    # Run summarization on the news stories
-    output = []
-    for story in news_stories:
-        result = summarize_text(story)
-        output.append({
-            "input_text": story,
-            "summary_text": result[0]['summary_text']
-        })
+        # Run summarization on the news stories
+        output = []
+        for story in news_stories:
+            result = summarize_text(story)
+            output.append({
+                "input_text": story,
+                "summary_text": result[0]['summary_text']
+            })
 
-    # Save the results to a markdown file
-    file_name = "test/summarize_text.md"
-    with open(file_name, "w") as file:
-        for result in output:
-            file.write("# Test Summarize Text\n\n")
-            input_text = result['input_text']
-            input_size = len(input_text.split(" "))
-            summary_text = result['summary_text']
-            summary_size = len(summary_text.split(" "))
-            file.write("## Input Text\n\n")
-            file.write(f"{input_text}\n\n")
-            file.write("## Input Size\n\n")
-            file.write(f"{input_size} words\n\n")
-            file.write("## Summary\n\n")
-            file.write(f"{summary_text}\n\n")
-            file.write("## Summary Size\n\n")
-            file.write(f"{summary_size} words\n\n")
+        # Save the results to a markdown file
+        file_name = "test/summarize_text.md"
+        with open(file_name, "w") as file:
+            for result in output:
+                file.write("# Test Summarize Text\n\n")
+                input_text = result['input_text']
+                input_size = len(input_text.split(" "))
+                summary_text = result['summary_text']
+                summary_size = len(summary_text.split(" "))
+                file.write("## Input Text\n\n")
+                file.write(f"{input_text}\n\n")
+                file.write("## Input Size\n\n")
+                file.write(f"{input_size} words\n\n")
+                file.write("## Summary\n\n")
+                file.write(f"{summary_text}\n\n")
+                file.write("## Summary Size\n\n")
+                file.write(f"{summary_size} words\n\n")
 
-    end = time.time()
-    print(f"✅ Test Summarize Text completed in {end - start:.2f} seconds.")
+        end = time.time()
+        print(f"✅ Test Summarize Text completed in {end - start:.2f} seconds.")
 
+    def test_depth_estimate():
 
-def test_depth_estimate():
+        print("Testing depth estimate...")
 
-    print("Testing depth estimate...")
+        start = time.time()
 
-    start = time.time()
+        # Sample input image
+        image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
-    # Sample input image
-    image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+        # Run depth estimation on the input image
+        result_image = depth_estimate(image_url)
+        result_image.save("test/depth_estimate.jpg")
 
-    # Run depth estimation on the input image
-    result_image = depth_estimate(image_url)
-    result_image.save("test/depth_estimate.jpg")
+        # Save the depth image in a markdown file
+        file_name = "test/depth_estimate.md"
+        with open(file_name, "w") as file:
+            file.write("# Test Depth Estimate\n\n")
+            file.write("## Input Image\n\n")
+            file.write(f"![Input Image]({image_url})\n\n")
+            file.write("## Depth Image\n\n")
+            file.write("![Depth Image](depth_estimate.jpg)\n\n")
 
-    # Save the depth image in a markdown file
-    file_name = "test/depth_estimate.md"
-    with open(file_name, "w") as file:
-        file.write("# Test Depth Estimate\n\n")
-        file.write("## Input Image\n\n")
-        file.write(f"![Input Image]({image_url})\n\n")
-        file.write("## Depth Image\n\n")
-        file.write("![Depth Image](depth_estimate.jpg)\n\n")
+        end = time.time()
+        print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
 
-    end = time.time()
-    print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
+    def test_detect_objects():
 
+        print("Testing detect objects...")
 
-def test_detect_objects():
+        start = time.time()
 
-    print("Testing detect objects...")
+        # Sample input image
+        image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
-    start = time.time()
+        # Run object detection on the input image
+        results = detect_objects(image_url)
 
-    # Sample input image
-    image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+        # Save the results to a markdown file
+        file_name = "test/detect_objects.md"
+        with open(file_name, "w") as file:
+            file.write("# Test Detect Objects\n\n")
+            file.write("## Input Image\n\n")
+            file.write(f"![Input Image]({image_url})\n\n")
+            file.write("## Object Detection Results\n\n")
+            file.write("| Object | Confidence | Location |\n")
+            file.write("|--------|------------|----------|\n")
+            for result in results["Object Detection Results"]:
+                object_name = result["Object"]
+                confidence = result["Confidence"]
+                location = result["Location"]
+                file.write(f"| {object_name} | {confidence} | {location} |\n")
 
-    # Run object detection on the input image
-    results = detect_objects(image_url)
-
-    # Save the results to a markdown file
-    file_name = "test/detect_objects.md"
-    with open(file_name, "w") as file:
-        file.write("# Test Detect Objects\n\n")
-        file.write("## Input Image\n\n")
-        file.write(f"![Input Image]({image_url})\n\n")
-        file.write("## Object Detection Results\n\n")
-        file.write("| Object | Confidence | Location |\n")
-        file.write("|--------|------------|----------|\n")
-        for result in results["Object Detection Results"]:
-            object_name = result["Object"]
-            confidence = result["Confidence"]
-            location = result["Location"]
-            file.write(f"| {object_name} | {confidence} | {location} |\n")
-
-    end = time.time()
-    print(f"✅ Test Detect Objects completed in {end - start:.2f} seconds.")
-
-
-if __name__ == "__main__":
+        end = time.time()
+        print(f"✅ Test Detect Objects completed in {end - start:.2f} seconds.")
 
     test_sentiment_analysis()
     test_summarize_text()
