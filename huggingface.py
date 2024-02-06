@@ -1,6 +1,5 @@
 from transformers import pipeline
-# from diffusers import StableDiffusionPipeline
-# import torch
+
 from dotenv import load_dotenv
 import os
 
@@ -13,10 +12,6 @@ def sentiment_analysis(text):
     classifier = pipeline('sentiment-analysis')
     result = classifier(text)
     return result
-
-
-def diffuser_sentiment_analysis(text):
-    pass
 
 
 def test_sentiment_analysis():
