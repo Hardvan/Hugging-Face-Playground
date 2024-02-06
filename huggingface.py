@@ -79,6 +79,15 @@ def depth_estimate(image_url, output_path="depth_estimate.jpg"):
 
 
 def detect_objects(image_url):
+    """Run object detection on the input image.
+
+    Args:
+        image_url (str): The URL of the input image to detect objects.
+
+    Returns:
+        dict: A dictionary containing the object detection results.
+            Structure: {'Object Detection Results': [{'Object': '...', 'Confidence': ..., 'Location': '...'}]}
+    """
 
     image = Image.open(requests.get(image_url, stream=True).raw)
 
@@ -97,13 +106,6 @@ def detect_objects(image_url):
     results = processor.post_process_object_detection(
         outputs, target_sizes=target_sizes, threshold=0.9)[0]
 
-    # Structure of results
-    # {
-    #     "boxes": tensor([[x0, y0, x1, y1], ...]),
-    #     "labels": tensor([...]),
-    #     "scores": tensor([...]),
-    # }
-
     results_dict = {
         "Object Detection Results": []
     }
@@ -119,10 +121,13 @@ def detect_objects(image_url):
             "Location": location
         })
 
+    # {'Object Detection Results': [{'Object': '...', 'Confidence': ..., 'Location': '...'}]}
     return results_dict
 
 
 def test_sentiment_analysis():
+
+    print("Testing sentiment analysis...")
 
     start = time.time()
 
@@ -167,6 +172,8 @@ def test_sentiment_analysis():
 
 
 def test_summarize_text():
+
+    print("Testing summarize text...")
 
     start = time.time()
 
@@ -225,6 +232,8 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
 
 def test_depth_estimate():
 
+    print("Testing depth estimate...")
+
     start = time.time()
 
     # Sample input image
@@ -242,6 +251,8 @@ def test_depth_estimate():
 
 
 def test_detect_objects():
+
+    print("Testing detect objects...")
 
     start = time.time()
 
@@ -272,7 +283,7 @@ def test_detect_objects():
 
 if __name__ == "__main__":
 
-    # test_sentiment_analysis()
-    # test_summarize_text()
-    # test_depth_estimate()
+    test_sentiment_analysis()
+    test_summarize_text()
+    test_depth_estimate()
     test_detect_objects()
