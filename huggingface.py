@@ -38,15 +38,15 @@ def summarize_text(text):
     return result  # [{'summary_text': '...'}]
 
 
-def depth_estimate(image_url, output_path="depth_estimate.jpg"):
-    """Run depth estimation on the input image & save the result to a file.
+def depth_estimate(image_url):
+    """Run depth estimation on the input image.
 
     Args:
         image_url (str): The URL of the input image to estimate depth.
-        output_path (str): The file path to save the depth image. Default is "depth_estimate.jpg".
+        output_path (str): The file path to save the depth image. Defaults to "depth_estimate.jpg".
 
     Returns:
-        None
+        Image: The depth image.
     """
 
     image = Image.open(requests.get(image_url, stream=True).raw)
@@ -74,8 +74,7 @@ def depth_estimate(image_url, output_path="depth_estimate.jpg"):
     formatted = (output * 255 / np.max(output)).astype("uint8")
     depth = Image.fromarray(formatted)
 
-    # Save the depth image to a file
-    depth.save(output_path)
+    return depth
 
 
 def detect_objects(image_url):
@@ -240,7 +239,17 @@ def test_depth_estimate():
     image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
     # Run depth estimation on the input image
-    depth_estimate(image_url, output_path="depth_estimate.jpg")
+    result_image = depth_estimate(image_url)
+    result_image.save("depth_estimate.jpg")
+
+    # Save the depth image in a markdown file
+    file_name = "depth_estimate.md"
+    with open(file_name, "w") as file:
+        file.write("# Test Depth Estimate\n\n")
+        file.write("## Input Image\n\n")
+        file.write(f"![Input Image]({image_url})\n\n")
+        file.write("## Depth Image\n\n")
+        file.write("![Depth Image](depth_estimate.jpg)\n\n")
 
     end = time.time()
     print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
