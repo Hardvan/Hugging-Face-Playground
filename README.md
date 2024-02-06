@@ -1,6 +1,6 @@
 # Hugging Face Playground
 
-The `huggingface.py` contains various transformers from huggingface, which uses the `pipeline` function to perform various tasks such as text generation, text summarization, text translation, etc.
+The `huggingface.py` contains various models from huggingface, which uses the `pipeline` function to perform various tasks such as text generation, text summarization, text translation, etc.
 
 ## Tasks Performed
 
