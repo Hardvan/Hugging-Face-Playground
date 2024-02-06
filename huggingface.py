@@ -1,5 +1,10 @@
-from transformers import pipeline
+from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation
 import time
+import torch
+import numpy as np
+from PIL import Image
+import requests
+
 from dotenv import load_dotenv
 import os
 
@@ -21,6 +26,52 @@ def sentiment_analysis(text):
     classifier = pipeline('sentiment-analysis')
     result = classifier(text)
     return result  # [{'label': '...', 'score': ...}]
+
+
+def summarize_text(text):
+    """Run summarization on the input text.
+
+    Args:
+        text (str): The input text to summarize.
+
+    Returns:
+        list: A list of dictionaries containing the summary of the input text.
+            Structure: [{'summary_text': '...'}]
+    """
+
+    summarizer = pipeline('summarization', model='facebook/bart-large-cnn')
+    result = summarizer(text, min_length=30, max_length=100, do_sample=False)
+    return result  # [{'summary_text': '...'}]
+
+
+def depth_estimate(image_url):
+
+    image = Image.open(requests.get(image_url, stream=True).raw)
+
+    processor = DPTImageProcessor.from_pretrained("Intel/dpt-large")
+    model = DPTForDepthEstimation.from_pretrained("Intel/dpt-large")
+
+    # prepare image for the model
+    inputs = processor(images=image, return_tensors="pt")
+
+    with torch.no_grad():
+        outputs = model(**inputs)
+        predicted_depth = outputs.predicted_depth
+
+    # interpolate to original size
+    prediction = torch.nn.functional.interpolate(
+        predicted_depth.unsqueeze(1),
+        size=image.size[::-1],
+        mode="bicubic",
+        align_corners=False,
+    )
+
+    # visualize the prediction
+    output = prediction.squeeze().cpu().numpy()
+    formatted = (output * 255 / np.max(output)).astype("uint8")
+    depth = Image.fromarray(formatted)
+
+    return depth  # Image object
 
 
 def test_sentiment_analysis():
@@ -65,22 +116,6 @@ def test_sentiment_analysis():
 
     end = time.time()
     print(f"✅ Test Sentiment Analysis completed in {end - start:.2f} seconds.")
-
-
-def summarize_text(text):
-    """Run summarization on the input text.
-
-    Args:
-        text (str): The input text to summarize.
-
-    Returns:
-        list: A list of dictionaries containing the summary of the input text.
-            Structure: [{'summary_text': '...'}]
-    """
-
-    summarizer = pipeline('summarization', model='facebook/bart-large-cnn')
-    result = summarizer(text, min_length=30, max_length=100, do_sample=False)
-    return result  # [{'summary_text': '...'}]
 
 
 def test_summarize_text():
@@ -140,7 +175,26 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
     print(f"✅ Test Summarize Text completed in {end - start:.2f} seconds.")
 
 
+def test_depth_estimate():
+
+    start = time.time()
+
+    # Sample input image
+    image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+
+    # Run depth estimation on the input image
+    output = depth_estimate(image_url)
+
+    # Save the result to a file
+    file_name = "test_depth_estimate.jpg"
+    output.save(file_name)
+
+    end = time.time()
+    print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
+
+
 if __name__ == "__main__":
 
     # test_sentiment_analysis()
-    test_summarize_text()
+    # test_summarize_text()
+    test_depth_estimate()
