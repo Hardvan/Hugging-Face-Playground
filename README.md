@@ -101,3 +101,5 @@ The `detect_objects` function conducts object detection on an input image using 
 | couch  | 0.995      | [-0.02, 1.15, 639.73, 473.76]   |
 | cat    | 0.999      | [13.24, 52.05, 314.02, 470.93]  |
 | cat    | 0.999      | [345.4, 23.85, 640.37, 368.72]  |
+
+## TODO: Flask App to Use the Functions
