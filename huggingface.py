@@ -5,12 +5,6 @@ import numpy as np
 from PIL import Image
 import requests
 
-from dotenv import load_dotenv
-import os
-
-# load the .env file
-load_dotenv()
-
 
 def sentiment_analysis(text):
     """Run sentiment analysis on the input text.
@@ -44,14 +38,15 @@ def summarize_text(text):
     return result  # [{'summary_text': '...'}]
 
 
-def depth_estimate(image_url):
-    """Run depth estimation on the input image.
+def depth_estimate(image_url, output_path="depth_estimate.jpg"):
+    """Run depth estimation on the input image & save the result to a file.
 
     Args:
         image_url (str): The URL of the input image to estimate depth.
+        output_path (str): The file path to save the depth image. Default is "depth_estimate.jpg".
 
     Returns:
-        Image: The estimated depth image.
+        None
     """
 
     image = Image.open(requests.get(image_url, stream=True).raw)
@@ -79,7 +74,8 @@ def depth_estimate(image_url):
     formatted = (output * 255 / np.max(output)).astype("uint8")
     depth = Image.fromarray(formatted)
 
-    return depth  # Image object
+    # Save the depth image to a file
+    depth.save(output_path)
 
 
 def detect_objects(image_url):
@@ -101,31 +97,29 @@ def detect_objects(image_url):
     results = processor.post_process_object_detection(
         outputs, target_sizes=target_sizes, threshold=0.9)[0]
 
-    # Structure of the results dictionary
+    # Structure of results
     # {
     #     "boxes": tensor([[x0, y0, x1, y1], ...]),
     #     "labels": tensor([...]),
     #     "scores": tensor([...]),
     # }
 
-    # Save the results to a markdown file
-    file_name = "object_detection_results.md"
-    file_heading = "# Object Detection Results\n\n"
-    table_header = "| Object | Confidence | Location |\n"
-    table_divider = "| --- | --- | --- |\n"
-    table_rows = ""
+    results_dict = {
+        "Object Detection Results": []
+    }
+
     for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
         box = [round(i, 2) for i in box.tolist()]
         object_name = model.config.id2label[label.item()]
         confidence = round(score.item(), 3)
         location = str(box)
-        table_rows += f"| {object_name} | {confidence} | {location} |\n"
+        results_dict["Object Detection Results"].append({
+            "Object": object_name,
+            "Confidence": confidence,
+            "Location": location
+        })
 
-    with open(file_name, "w") as file:
-        file.write(file_heading)
-        file.write(table_header)
-        file.write(table_divider)
-        file.write(table_rows)
+    return results_dict
 
 
 def test_sentiment_analysis():
@@ -255,7 +249,22 @@ def test_detect_objects():
     image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
     # Run object detection on the input image
-    detect_objects(image_url)
+    results = detect_objects(image_url)
+
+    # Save the results to a markdown file
+    file_name = "test_detect_objects.md"
+    with open(file_name, "w") as file:
+        file.write("# Test Detect Objects\n\n")
+        file.write("## Input Image\n\n")
+        file.write(f"![Input Image]({image_url})\n\n")
+        file.write("## Object Detection Results\n\n")
+        file.write("| Object | Confidence | Location |\n")
+        file.write("|--------|------------|----------|\n")
+        for result in results["Object Detection Results"]:
+            object_name = result["Object"]
+            confidence = result["Confidence"]
+            location = result["Location"]
+            file.write(f"| {object_name} | {confidence} | {location} |\n")
 
     end = time.time()
     print(f"✅ Test Detect Objects completed in {end - start:.2f} seconds.")
