@@ -155,7 +155,7 @@ def test_sentiment_analysis():
         })
 
     # Save the results to a markdown file
-    file_name = "test_sentiment_analysis.md"
+    file_name = "sentiment_analysis.md"
     file_heading = "# Test Sentiment Analysis\n\n"
     table_header = "| Input text | Label | Score |\n"
     table_divider = "| --- | --- | --- |\n"
@@ -209,7 +209,7 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
         })
 
     # Save the results to a markdown file
-    file_name = "test_summarize_text.md"
+    file_name = "summarize_text.md"
     with open(file_name, "w") as file:
         for result in output:
             file.write("# Test Summarize Text\n\n")
@@ -240,11 +240,7 @@ def test_depth_estimate():
     image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
     # Run depth estimation on the input image
-    output = depth_estimate(image_url)
-
-    # Save the result to a file
-    file_name = "test_depth_estimate.jpg"
-    output.save(file_name)
+    depth_estimate(image_url, output_path="depth_estimate.jpg")
 
     end = time.time()
     print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
@@ -263,7 +259,7 @@ def test_detect_objects():
     results = detect_objects(image_url)
 
     # Save the results to a markdown file
-    file_name = "test_detect_objects.md"
+    file_name = "detect_objects.md"
     with open(file_name, "w") as file:
         file.write("# Test Detect Objects\n\n")
         file.write("## Input Image\n\n")

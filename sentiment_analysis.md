@@ -10,4 +10,4 @@
 | I am feeling neutral. | NEGATIVE | 0.9984839558601379 |
 | The product has a good quality, but is too expensive. | NEGATIVE | 0.9974652528762817 |
 | The product is cheap, but has a bad quality. | NEGATIVE | 0.9994826316833496 |
-| The product is neither good nor bad. | NEGATIVE | 0.9848747849464417 |
+| The product is neither good nor bad. | NEGATIVE | 0.9848746657371521 |
