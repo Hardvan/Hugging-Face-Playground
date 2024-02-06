@@ -1,3 +1,15 @@
+"""
+This module contains functions to run sentiment analysis, text summarization,
+depth estimation, and object detection using the Hugging Face Transformers library.
+
+Functions:
+    sentiment_analysis: Run sentiment analysis on the input text.
+    summarize_text: Run summarization on the input text.
+    depth_estimate: Run depth estimation on the input image.
+    detect_objects: Run object detection on the input image.
+"""
+
+
 from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection
 import torch
 import numpy as np
