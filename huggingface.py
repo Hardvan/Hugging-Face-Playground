@@ -1,4 +1,4 @@
-from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation
+from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection
 import time
 import torch
 import numpy as np
@@ -45,6 +45,14 @@ def summarize_text(text):
 
 
 def depth_estimate(image_url):
+    """Run depth estimation on the input image.
+
+    Args:
+        image_url (str): The URL of the input image to estimate depth.
+
+    Returns:
+        Image: The estimated depth image.
+    """
 
     image = Image.open(requests.get(image_url, stream=True).raw)
 
@@ -72,6 +80,52 @@ def depth_estimate(image_url):
     depth = Image.fromarray(formatted)
 
     return depth  # Image object
+
+
+def detect_objects(image_url):
+
+    image = Image.open(requests.get(image_url, stream=True).raw)
+
+    # you can specify the revision tag if you don't want the timm dependency
+    processor = DetrImageProcessor.from_pretrained(
+        "facebook/detr-resnet-50", revision="no_timm")
+    model = DetrForObjectDetection.from_pretrained(
+        "facebook/detr-resnet-50", revision="no_timm")
+
+    inputs = processor(images=image, return_tensors="pt")
+    outputs = model(**inputs)
+
+    # convert outputs (bounding boxes and class logits) to COCO API
+    # let's only keep detections with score > 0.9
+    target_sizes = torch.tensor([image.size[::-1]])
+    results = processor.post_process_object_detection(
+        outputs, target_sizes=target_sizes, threshold=0.9)[0]
+
+    # Structure of the results dictionary
+    # {
+    #     "boxes": tensor([[x0, y0, x1, y1], ...]),
+    #     "labels": tensor([...]),
+    #     "scores": tensor([...]),
+    # }
+
+    # Save the results to a markdown file
+    file_name = "object_detection_results.md"
+    file_heading = "# Object Detection Results\n\n"
+    table_header = "| Object | Confidence | Location |\n"
+    table_divider = "| --- | --- | --- |\n"
+    table_rows = ""
+    for score, label, box in zip(results["scores"], results["labels"], results["boxes"]):
+        box = [round(i, 2) for i in box.tolist()]
+        object_name = model.config.id2label[label.item()]
+        confidence = round(score.item(), 3)
+        location = str(box)
+        table_rows += f"| {object_name} | {confidence} | {location} |\n"
+
+    with open(file_name, "w") as file:
+        file.write(file_heading)
+        file.write(table_header)
+        file.write(table_divider)
+        file.write(table_rows)
 
 
 def test_sentiment_analysis():
@@ -193,8 +247,23 @@ def test_depth_estimate():
     print(f"✅ Test Depth Estimate completed in {end - start:.2f} seconds.")
 
 
+def test_detect_objects():
+
+    start = time.time()
+
+    # Sample input image
+    image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+
+    # Run object detection on the input image
+    detect_objects(image_url)
+
+    end = time.time()
+    print(f"✅ Test Detect Objects completed in {end - start:.2f} seconds.")
+
+
 if __name__ == "__main__":
 
     # test_sentiment_analysis()
     # test_summarize_text()
-    test_depth_estimate()
+    # test_depth_estimate()
+    test_detect_objects()
