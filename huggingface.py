@@ -1,5 +1,4 @@
 from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection
-import time
 import torch
 import numpy as np
 from PIL import Image
@@ -125,6 +124,8 @@ def detect_objects(image_url):
 
 
 if __name__ == "__main__":
+
+    import time
 
     def test_sentiment_analysis():
 
