@@ -92,6 +92,10 @@ The `detect_objects` function conducts object detection on an input image using 
 
 ![Input Image](http://images.cocodataset.org/val2017/000000039769.jpg)
 
+###### Output Image
+
+![Output Image](./test/detect_objects.png)
+
 ###### Object Detection Results
 
 | Object | Confidence | Location                        |

@@ -106,7 +106,7 @@ def draw_bounding_box(image, box, object_name, color="green", thickness=5):
     draw.rectangle(box, outline=color, width=thickness)
 
     # Include the name of the object in the outline
-    draw.text((box[0], box[1] - 15), object_name, fill=color)
+    draw.text((box[0] + 10, box[1] + 10), object_name, fill=color)
 
     return image
 
@@ -305,7 +305,9 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
         image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 
         # Run object detection on the input image
-        results = detect_objects(image_url)
+        results, box_image = detect_objects(image_url)
+        results = results["Object Detection Results"]
+        box_image.save("test/detect_objects.png")
 
         # Save the results to a markdown file
         file_name = "test/detect_objects.md"
@@ -313,10 +315,12 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
             file.write("# Test Detect Objects\n\n")
             file.write("## Input Image\n\n")
             file.write(f"![Input Image]({image_url})\n\n")
+            file.write("## Output Image\n\n")
+            file.write("![Output Image](detect_objects.png)\n\n")
             file.write("## Object Detection Results\n\n")
             file.write("| Object | Confidence | Location |\n")
             file.write("|--------|------------|----------|\n")
-            for result in results["Object Detection Results"]:
+            for result in results:
                 object_name = result["Object"]
                 confidence = result["Confidence"]
                 location = result["Location"]

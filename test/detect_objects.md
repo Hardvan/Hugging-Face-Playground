@@ -4,6 +4,10 @@
 
 ![Input Image](http://images.cocodataset.org/val2017/000000039769.jpg)
 
+## Output Image
+
+![Output Image](detect_objects.png)
+
 ## Object Detection Results
 
 | Object | Confidence | Location |
