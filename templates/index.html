@@ -1,47 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hugging Face Playground</title>
+{% extends 'base.html' %} {% block page_title %}Hugging Face Playground{%
+endblock %} {% block content %}
+<!-- Links to different pages -->
+<div class="links-container">
+  <a href="{{ url_for('sentiment_analysis') }}" class="link-card">
+    <p class="link">Sentiment Analysis</p>
+  </a>
 
-    <!-- Favicon -->
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon/favicon.png') }}"
-      type="image/x-icon"
-    />
+  <a href="{{ url_for('text_summarization') }}" class="link-card">
+    <p class="link">Text Summarization</p>
+  </a>
 
-    <!-- Custom CSS -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/index.css') }}"
-    />
-  </head>
+  <a href="{{ url_for('depth_estimation') }}" class="link-card">
+    <p class="link">Depth Estimation</p>
+  </a>
 
-  <body>
-    <h1 class="title">Hugging Face Playground</h1>
-
-    <!-- Links to different pages -->
-    <div class="links-container">
-      <a href="{{ url_for('sentiment_analysis') }}" class="link-card">
-        <p class="link">Sentiment Analysis</p>
-      </a>
-
-      <a href="{{ url_for('text_summarization') }}" class="link-card">
-        <p class="link">Text Summarization</p>
-      </a>
-
-      <a href="{{ url_for('depth_estimation') }}" class="link-card">
-        <p class="link">Depth Estimation</p>
-      </a>
-
-      <a href="{{ url_for('object_detection') }}" class="link-card">
-        <p class="link">Object Detection</p>
-      </a>
-    </div>
-
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-  </body>
-</html>
+  <a href="{{ url_for('object_detection') }}" class="link-card">
+    <p class="link">Object Detection</p>
+  </a>
+</div>
+{% endblock %}
