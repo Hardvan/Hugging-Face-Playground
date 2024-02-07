@@ -14,9 +14,22 @@ block page_title %}Object Detection{% endblock %} {%block content %}
 {% if result %}
 <div class="object-detection-result">
   <!-- Display Image -->
-  <h2>Input Image</h2>
-  <img src="data:image/png;base64,{{ result.image }}" alt="Input Image" />
-  <img src="data:image/png;base64,{{ result.box_image }}" alt="Output Image" />
+  <div class="image-container">
+    <div class="image-item">
+      <h2>Input Image</h2>
+      <img
+        src="data:image/png;base64,{{ result.image }}"
+        alt="Input Image"
+      />
+    </div>
+    <div class="image-item">
+      <h2>Output Image</h2>
+      <img
+        src="data:image/png;base64,{{ result.box_image }}"
+        alt="Output Image"
+      />
+    </div>
+  </div>
 
   <!-- Display Object Detection Results -->
   <h2>Object Detection Results</h2>

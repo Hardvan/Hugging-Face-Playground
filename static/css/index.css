@@ -263,6 +263,13 @@ body {
   text-align: center;
 }
 
+.object-detection-result .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
 .object-detection-result h2 {
   font-size: 2rem;
   margin-top: 20px;
@@ -272,8 +279,12 @@ body {
   max-width: 100%;
   height: auto;
   margin-top: 20px;
-  border: 1px solid white;
   border-radius: 5px;
+}
+
+.object-detection-result img:hover {
+  transform: scale(1.02);
+  transition: all 0.3s ease-in-out;
 }
 
 .object-detection-result table {
