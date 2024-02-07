@@ -8,7 +8,7 @@ block page_title %}Sentiment Analysis{% endblock %} {%block content %}
 </form>
 
 <!-- Loading section -->
-<div id="loading" class="loading-container">
+<div id="loading" class="loading-container" style="display: none">
   <div class="boxes">
     <div class="box">
       <div></div>
@@ -55,4 +55,22 @@ block page_title %}Sentiment Analysis{% endblock %} {%block content %}
 
   <p class="time">Elapsed Time: {{ result['elapsed_time'] }} seconds</p>
 </div>
-{% endif %} {% endblock %}
+{% endif %}
+
+<script>
+  // Get the form, loading section
+  const form = document.querySelector(".sentiment-input-form");
+  const loading = document.getElementById("loading");
+
+  // Hide loading section when page is loaded
+  window.addEventListener("load", () => {
+    loading.style.display = "none";
+  });
+
+  // Show loading section when form is submitted
+  form.addEventListener("submit", () => {
+    loading.style.display = "flex";
+  });
+</script>
+
+{% endblock %}
