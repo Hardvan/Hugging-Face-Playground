@@ -17,10 +17,7 @@ block page_title %}Object Detection{% endblock %} {%block content %}
   <div class="image-container">
     <div class="image-item">
       <h2>Input Image</h2>
-      <img
-        src="data:image/png;base64,{{ result.image }}"
-        alt="Input Image"
-      />
+      <img src="data:image/png;base64,{{ result.image }}" alt="Input Image" />
     </div>
     <div class="image-item">
       <h2>Output Image</h2>
@@ -52,6 +49,9 @@ block page_title %}Object Detection{% endblock %} {%block content %}
   <p class="time">Elapsed Time: {{ result.elapsed_time }} seconds</p>
 </div>
 {% endif %}
+
+<!-- Back to Home button -->
+{% include 'back_to_home.html' %}
 
 <script>
   // Get the form, loading section
