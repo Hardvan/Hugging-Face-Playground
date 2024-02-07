@@ -1,6 +1,12 @@
 # Hugging Face Playground
 
+The Hugging Face Playground is an innovative Flask-based web application that dives deep into the world of AI. This experimental project provides a user-friendly interface, simplifying access to powerful Natural Language Processing (NLP) and Computer Vision models from Hugging Face, Facebook & Intel. With abstracted model inputs and outputs, it's designed for both experts and beginners, making advanced AI experimentation accessible to all. Dive into sentiment analysis, text summarization, depth estimation, and object detection effortlessly. Welcome to a playground where AI meets user simplicity!
+
 The `huggingface.py` contains various models from huggingface, which uses the `pipeline` function to perform various tasks such as text generation, text summarization, text translation, etc.
+
+## Demonstration Video
+
+[![Hugging Face Playground](./demo/thumbnail.png)](https://youtu.be/hOWunqXjKog)
 
 ## Tasks Performed
 
