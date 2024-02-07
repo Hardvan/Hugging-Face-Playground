@@ -8,34 +8,7 @@ block page_title %}Sentiment Analysis{% endblock %} {%block content %}
 </form>
 
 <!-- Loading section -->
-<div id="loading" class="loading-container" style="display: none">
-  <div class="boxes">
-    <div class="box">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="box">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="box">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <div class="box">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-</div>
+{% include 'loading_section.html' %}
 
 <!-- Display result = {'label': '...', 'score': ...} -->
 {% if result %}

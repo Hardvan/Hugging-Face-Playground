@@ -7,6 +7,9 @@ block page_title %}Depth Estimation{% endblock %} {%block content %}
   <input type="submit" value="Submit" />
 </form>
 
+<!-- Loading section -->
+{% include 'loading_section.html' %}
+
 <!-- Display the result = {input_image (base64), depth_image (base64)} -->
 {% if result %}
 <div class="depth-result">
@@ -17,4 +20,22 @@ block page_title %}Depth Estimation{% endblock %} {%block content %}
 
   <p class="time">Elapsed Time: {{ result.elapsed_time }} seconds</p>
 </div>
-{% endif %}{% endblock %}
+{% endif %}
+
+<script>
+  // Get the form, loading section
+  const form = document.querySelector(".depth-form");
+  const loading = document.getElementById("loading");
+
+  // Hide loading section when page is loaded
+  window.addEventListener("load", () => {
+    loading.style.display = "none";
+  });
+
+  // Show loading section when form is submitted
+  form.addEventListener("submit", () => {
+    loading.style.display = "flex";
+  });
+</script>
+
+{% endblock %}
