@@ -9,6 +9,8 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Poppins", sans-serif;
+  background-color: #050613;
+  color: white;
 }
 
 /* Disable vertical scrollbar */
@@ -19,6 +21,13 @@ body {
 .title {
   font-size: 3rem;
   text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(white, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Links Section */
@@ -44,12 +53,14 @@ body {
   text-align: center;
   text-decoration: none;
   transition: all 0.2s linear;
+  margin: 10px; /* Added margin for spacing between link cards */
 }
 
 .link {
   z-index: 1;
   color: white;
-  font-size: 2em;
+  padding: 10px;
+  font-size: 1.7rem;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
