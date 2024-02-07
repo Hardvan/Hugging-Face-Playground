@@ -24,6 +24,12 @@
       {% block page_title %}Hugging Face Playground{% endblock %}
     </h1>
 
+    <!-- Description Block -->
+    <div class="description">
+      <h2>{% block description_h2 %}{% endblock %}</h2>
+      <p>{% block description_p %}{% endblock %}</p>
+    </div>
+
     <!-- Content Block -->
     {% block content %}{% endblock %}
 

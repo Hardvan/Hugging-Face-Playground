@@ -1,5 +1,11 @@
 {% extends 'base.html' %} {% block page_title %}Hugging Face Playground{%
-endblock %} {% block content %}
+endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Welcome to the Hugging Face Playground{% endblock %}
+{% block description_p %}This is a simple web application that allows you to
+test different NLP and computer vision models from Hugging Face. You can test
+the following models:{% endblock %} {% block content %}
 <!-- Links to different pages -->
 <div class="links-container">
   <a href="{{ url_for('sentiment_analysis') }}" class="link-card">

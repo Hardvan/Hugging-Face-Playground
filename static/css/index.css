@@ -30,6 +30,26 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Description Section */
+.description {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.description h2 {
+  font-size: 2rem;
+  margin-top: 20px;
+}
+
+.description p {
+  font-size: 1.2rem;
+  margin: 20px 100px;
+}
+
 /* Links Section */
 .links-container {
   display: flex;
