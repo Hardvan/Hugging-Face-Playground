@@ -1,16 +1,20 @@
-<h1>Text Summarization</h1>
+{% extends 'base.html' %} {% block title %}Text Summarization{% endblock %} {%
+block page_title %}Text Summarization{% endblock %} {%block content %}
 
 <!-- Form to accept large text input -->
-<form action="/text_summarization" method="POST">
+<form action="/text_summarization" method="POST" class="summarize-form">
   <textarea name="text" rows="10" cols="30"></textarea>
   <input type="submit" value="Submit" />
 </form>
 
 <!-- Display the result = {'text': ..., 'summary_text': ..., 'elapsed_time': ...} -->
 {% if result %}
-<h2>Input Text</h2>
-<p>{{ result['text'] }}</p>
-<h2>Summary</h2>
-<p>{{ result['summary_text'] }}</p>
+<div class="summarize-result">
+  <h2>Input Text</h2>
+  <p>{{ result['text'] }}</p>
+  <h2>Summary</h2>
+  <p>{{ result['summary_text'] }}</p>
+  <p class="time">Time taken: {{ result['elapsed_time'] }} seconds</p>
+</div>
 
-Time taken: {{ result['elapsed_time'] }} seconds {% endif %}
+{% endif %} {% endblock %}
