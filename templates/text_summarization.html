@@ -1,5 +1,21 @@
 {% extends 'base.html' %} {% block title %}Text Summarization{% endblock %} {%
-block page_title %}Text Summarization{% endblock %} {%block content %}
+block page_title %}Text Summarization{% endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Effortless Text Summarization at Your Fingertips{%
+endblock %} {% block description_p %}
+<p>
+  Experience the power of concise communication with our Text Summarization
+  page. Seamlessly summarizing large blocks of text, this feature utilizes
+  advanced natural language processing models from Facebook's bart-large-cnn
+  model. Simply input your extensive text and witness the generation of a
+  succinct summary that captures the essence of the content. Whether for
+  research, content curation, or quick insights, the Text Summarization tool
+  offers a user-friendly interface for efficient and effective summarization.
+  Explore the art of condensing information without compromising its core
+  meaning.
+</p>
+{% endblock %} {%block content %}
 
 <!-- Form to accept large text input -->
 <form action="/text_summarization" method="POST" class="summarize-form">

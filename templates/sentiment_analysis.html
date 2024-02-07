@@ -1,5 +1,18 @@
 {% extends 'base.html' %} {% block title %}Sentiment Analysis{% endblock %} {%
-block page_title %}Sentiment Analysis{% endblock %} {%block content %}
+block page_title %}Sentiment Analysis{% endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Detect the Sentiment of a Sentence{% endblock %} {%
+block description_p %}
+<p>
+  Dive into the realm of sentiment analysis with our Sentiment Analysis page.
+  Utilizing Hugging Face's default model from the pipeline function, this
+  feature allows you to discern the sentiment expressed in a given sentence. A
+  seamless interface provides quick insights, making sentiment analysis
+  accessible to all users. Simply enter a sentence and let the power of natural
+  language processing reveal its sentiment.
+</p>
+{% endblock %} {%block content %}
 
 <!-- Form to accept a sentence -->
 <form action="/sentiment_analysis" method="POST" class="sentiment-input-form">

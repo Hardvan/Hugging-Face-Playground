@@ -1,5 +1,21 @@
 {% extends 'base.html' %} {% block title %}Object Detection{% endblock %} {%
-block page_title %}Object Detection{% endblock %} {%block content %}
+block page_title %}Object Detection{% endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Identify and Analyze Objects with Precision{% endblock
+%} {% block description_p %}
+<p>
+  Experience the power of Object Detection with our advanced model from
+  Facebook's detr-resnet-50 model. Detect and analyze objects within images
+  effortlessly. The Object Detection tool provides accurate bounding boxes,
+  allowing you to visualize and understand the spatial distribution of various
+  elements. Submit an image URL, and witness the transformation as the models
+  identify and outline objects with confidence. Explore the detailed results,
+  including object names, confidence levels, and precise locations. Uncover
+  valuable insights within your images and elevate your visual analysis with
+  Object Detection.
+</p>
+{% endblock %} {%block content %}
 
 <!-- Form to accept image url -->
 <form action="/object_detection" method="POST" class="object-detection-form">

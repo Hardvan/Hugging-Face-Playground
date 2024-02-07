@@ -1,5 +1,20 @@
 {% extends 'base.html' %} {% block title %}Depth Estimation{% endblock %} {%
-block page_title %}Depth Estimation{% endblock %} {%block content %}
+block page_title %}Depth Estimation{% endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Visualize Depth with Precision{% endblock %} {% block
+description_p %}
+<p>
+  Dive into the world of Depth Estimation, where visual content comes to life
+  with enhanced depth perception. This advanced image processing model from
+  Intel allows you to estimate depth seamlessly. Whether exploring the
+  spatial intricacies of an image or enhancing visual understanding, this Depth
+  Estimation tool provides a powerful solution. Simply submit an image URL, and
+  watch as the model generate both the input image and its corresponding depth
+  map. Experience a new dimension of visual analysis and uncover hidden details
+  within your images.
+</p>
+{% endblock %} {%block content %}
 
 <!-- Form to accept image url -->
 <form action="/depth_estimation" method="POST" class="depth-form">
