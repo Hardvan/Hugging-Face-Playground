@@ -7,6 +7,36 @@ block page_title %}Sentiment Analysis{% endblock %} {%block content %}
   <input type="submit" value="Submit" />
 </form>
 
+<!-- Loading section -->
+<div id="loading" class="loading-container">
+  <div class="boxes">
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
 <!-- Display result = {'label': '...', 'score': ...} -->
 {% if result %}
 <div class="sentiment-result">
