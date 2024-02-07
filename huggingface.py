@@ -13,7 +13,7 @@ Functions:
 from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection
 import torch
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
 import requests
 
 
@@ -88,6 +88,24 @@ def depth_estimate(image_url):
     return depth
 
 
+def draw_bounding_box(image, box, color="green", thickness=5):
+    """Draw a bounding box around an object in the input image.
+
+    Args:
+        image (Image): The input image to draw the bounding box on.
+        box (list): The coordinates of the bounding box in the format [x_min, y_min, x_max, y_max].
+        color (str): The color of the bounding box. Defaults to "green".
+        thickness (int): The thickness of the bounding box. Defaults to 5.
+
+    Returns:
+        Image: The input image with the bounding box drawn around the object.
+    """
+
+    draw = ImageDraw.Draw(image)
+    draw.rectangle(box, outline=color, width=thickness)
+    return image
+
+
 def detect_objects(image_url):
     """Run object detection on the input image.
 
@@ -97,9 +115,11 @@ def detect_objects(image_url):
     Returns:
         dict: A dictionary containing the object detection results.
             Structure: {'Object Detection Results': [{'Object': '...', 'Confidence': ..., 'Location': '...'}]}
+        image (Image): The input image with bounding boxes drawn around the detected objects.
     """
 
     image = Image.open(requests.get(image_url, stream=True).raw)
+    image_copy = image.copy()
 
     # you can specify the revision tag if you don't want the timm dependency
     processor = DetrImageProcessor.from_pretrained(
@@ -131,8 +151,10 @@ def detect_objects(image_url):
             "Location": location
         })
 
-    # {'Object Detection Results': [{'Object': '...', 'Confidence': ..., 'Location': '...'}]}
-    return results_dict
+        # Draw bounding boxes around the detected objects in image_copy
+        image_copy = draw_bounding_box(image_copy, box)
+
+    return results_dict, image_copy
 
 
 if __name__ == "__main__":

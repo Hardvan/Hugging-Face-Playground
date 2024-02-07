@@ -13,6 +13,7 @@ block page_title %}Object Detection{% endblock %} {%block content %}
   <!-- Display Image -->
   <h2>Input Image</h2>
   <img src="data:image/png;base64,{{ result.image }}" alt="Input Image" />
+  <img src="data:image/png;base64,{{ result.box_image }}" alt="Output Image" />
 
   <!-- Display Object Detection Results -->
   <h2>Object Detection Results</h2>

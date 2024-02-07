@@ -103,8 +103,8 @@ def object_detection():
         image_url = request.form['image_url']
 
         start = time.time()
-        result = huggingface.detect_objects(
-            image_url)['Object Detection Results']
+        result, box_image = huggingface.detect_objects(image_url)
+        result = result['Object Detection Results']
         end = time.time()
 
         elapsed_time = round(end - start, 2)
@@ -115,8 +115,11 @@ def object_detection():
         image = Image.open(requests.get(image_url, stream=True).raw)
         image_base64 = image_to_base64(image)
 
+        box_image_base64 = image_to_base64(box_image)
+
         result = {
             'image': image_base64,
+            'box_image': box_image_base64,
             'list': result,
             'elapsed_time': elapsed_time
         }
