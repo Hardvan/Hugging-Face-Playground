@@ -1,16 +1,20 @@
-<h1>Depth Estimation</h1>
+{% extends 'base.html' %} {% block title %}Depth Estimation{% endblock %} {%
+block page_title %}Depth Estimation{% endblock %} {%block content %}
 
 <!-- Form to accept image url -->
-<form action="/depth_estimation" method="POST">
+<form action="/depth_estimation" method="POST" class="depth-form">
   <input type="text" name="image_url" placeholder="Enter Image URL" required />
   <input type="submit" value="Submit" />
 </form>
 
 <!-- Display the result = {input_image (base64), depth_image (base64)} -->
 {% if result %}
-<h2>Input Image</h2>
-<img src="data:image/png;base64,{{ result.input_image }}" alt="Input Image" />
-<h2>Depth Image</h2>
-<img src="data:image/png;base64,{{ result.depth_image }}" alt="Depth Image" />
+<div class="depth-result">
+  <h2>Input Image</h2>
+  <img src="data:image/png;base64,{{ result.input_image }}" alt="Input Image" />
+  <h2>Depth Image</h2>
+  <img src="data:image/png;base64,{{ result.depth_image }}" alt="Depth Image" />
 
-Time taken: {{ result.elapsed_time }} seconds {% endif %}
+  <p class="time">Elapsed Time: {{ result.elapsed_time }} seconds</p>
+</div>
+{% endif %}{% endblock %}

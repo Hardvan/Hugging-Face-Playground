@@ -303,3 +303,62 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+/* Depth Estimation Form Section */
+.depth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.depth-form input {
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.depth-form input[type="text"] {
+  background-color: #0f1e36;
+  color: white;
+}
+
+.depth-form input[type="submit"] {
+  background-color: #6d74e3;
+  color: white;
+  cursor: pointer;
+  width: 150px;
+}
+
+.depth-form input[type="submit"]:hover {
+  background-color: #575cb5;
+}
+
+/* Depth Estimation Result Section */
+.depth-result {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.depth-result h2 {
+  font-size: 2rem;
+  margin-top: 20px;
+}
+
+.depth-result img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.depth-result p.time {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
