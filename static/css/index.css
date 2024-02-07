@@ -100,3 +100,72 @@ body {
   inset: 5px;
   border-radius: 15px;
 }
+
+/* Form Section */
+.sentiment-input-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.sentiment-input-form input {
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.sentiment-input-form input[type="text"] {
+  background-color: #0f1e36;
+  color: white;
+}
+
+.sentiment-input-form input[type="submit"] {
+  background-color: #6d74e3;
+  color: white;
+  cursor: pointer;
+  width: 150px;
+}
+
+.sentiment-input-form input[type="submit"]:hover {
+  background-color: #575cb5;
+}
+
+/* Sentiment Result Section */
+.sentiment-result {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.sentiment-result table {
+  width: 69%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+.sentiment-result table,
+.sentiment-result th,
+.sentiment-result td {
+  border: 1px solid white;
+}
+
+.sentiment-result th,
+.sentiment-result td {
+  padding: 10px;
+}
+
+.sentiment-result th {
+  background-color: #6d74e3;
+  color: white;
+}
+
+.sentiment-result p {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
