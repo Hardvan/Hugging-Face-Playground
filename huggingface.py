@@ -88,12 +88,13 @@ def depth_estimate(image_url):
     return depth
 
 
-def draw_bounding_box(image, box, color="green", thickness=5):
+def draw_bounding_box(image, box, object_name, color="green", thickness=5):
     """Draw a bounding box around an object in the input image.
 
     Args:
         image (Image): The input image to draw the bounding box on.
         box (list): The coordinates of the bounding box in the format [x_min, y_min, x_max, y_max].
+        object_name (str): The name of the object to include in the outline.
         color (str): The color of the bounding box. Defaults to "green".
         thickness (int): The thickness of the bounding box. Defaults to 5.
 
@@ -103,6 +104,10 @@ def draw_bounding_box(image, box, color="green", thickness=5):
 
     draw = ImageDraw.Draw(image)
     draw.rectangle(box, outline=color, width=thickness)
+
+    # Include the name of the object in the outline
+    draw.text((box[0], box[1] - 15), object_name, fill=color)
+
     return image
 
 
@@ -152,7 +157,7 @@ def detect_objects(image_url):
         })
 
         # Draw bounding boxes around the detected objects in image_copy
-        image_copy = draw_bounding_box(image_copy, box)
+        image_copy = draw_bounding_box(image_copy, box, object_name)
 
     return results_dict, image_copy
 
