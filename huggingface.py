@@ -277,7 +277,7 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
         start = time.time()
 
         # Sample input image
-        image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
+        image_url = "https://wallpapers.com/images/featured-full/mountain-t6qhv1lk4j0au09t.jpg"
 
         # Run depth estimation on the input image
         result_image = depth_estimate(image_url)

@@ -74,7 +74,7 @@ The `depth_estimate` function performs depth estimation on an input image using 
 
 ###### Input Image
 
-![Input Image](http://images.cocodataset.org/val2017/000000039769.jpg)
+![Input Image](https://wallpapers.com/images/featured-full/mountain-t6qhv1lk4j0au09t.jpg)
 
 ###### Depth Image
 
