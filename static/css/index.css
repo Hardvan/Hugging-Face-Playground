@@ -41,15 +41,15 @@ body {
   place-items: center;
   overflow: hidden;
   border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s linear;
 }
 
-.link-card a {
+.link {
   z-index: 1;
   color: white;
   font-size: 2em;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s linear;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;

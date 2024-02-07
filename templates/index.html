@@ -24,26 +24,21 @@
 
     <!-- Links to different pages -->
     <div class="links-container">
-      <div class="link-card">
-        <a href="{{ url_for('sentiment_analysis') }}" class="link"
-          >Sentiment Analysis</a
-        >
-      </div>
-      <div class="link-card">
-        <a href="{{ url_for('text_summarization') }}" class="link"
-          >Text Summarization</a
-        >
-      </div>
-      <div class="link-card">
-        <a href="{{ url_for('depth_estimation') }}" class="link"
-          >Depth Estimation</a
-        >
-      </div>
-      <div class="link-card">
-        <a href="{{ url_for('object_detection') }}" class="link"
-          >Object Detection</a
-        >
-      </div>
+      <a href="{{ url_for('sentiment_analysis') }}" class="link-card">
+        <p class="link">Sentiment Analysis</p>
+      </a>
+
+      <a href="{{ url_for('text_summarization') }}" class="link-card">
+        <p class="link">Text Summarization</p>
+      </a>
+
+      <a href="{{ url_for('depth_estimation') }}" class="link-card">
+        <p class="link">Depth Estimation</p>
+      </a>
+
+      <a href="{{ url_for('object_detection') }}" class="link-card">
+        <p class="link">Object Detection</p>
+      </a>
     </div>
 
     <!-- Custom JS -->
