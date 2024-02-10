@@ -10,7 +10,7 @@ Functions:
 """
 
 
-from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection
+from transformers import pipeline, DPTImageProcessor, DPTForDepthEstimation, DetrImageProcessor, DetrForObjectDetection, ViTImageProcessor, ViTForImageClassification
 import torch
 import numpy as np
 from PIL import Image, ImageDraw
@@ -160,6 +160,42 @@ def detect_objects(image_url):
         image_copy = draw_bounding_box(image_copy, box, object_name)
 
     return results_dict, image_copy
+
+
+def classify_image(image_url):
+    """Run image classification on the input image.
+
+    Args:
+        image_url (str): The URL of the input image to classify.
+
+    Returns:
+    """
+
+    image = Image.open(requests.get(image_url, stream=True).raw)
+
+    processor = ViTImageProcessor.from_pretrained(
+        "google/vit-base-patch16-224")
+    model = ViTForImageClassification.from_pretrained(
+        "google/vit-base-patch16-224")
+
+    inputs = processor(images=image, return_tensors="pt")
+    outputs = model(**inputs)
+    logits = outputs.logits
+
+    # Get the top 3 class labels and scores
+    top_k = torch.topk(logits, k=3)
+    top_classes = top_k.indices[0]
+    top_scores = top_k.values[0]
+
+    predicted_classes = [model.config.id2label[class_idx.item()]
+                         for class_idx in top_classes]
+
+    # Convert scores to percentages
+    total_score = top_scores.sum().item()
+    scores_percentages = [(score.item() / total_score)
+                          * 100 for score in top_scores]
+
+    return predicted_classes, scores_percentages
 
 
 if __name__ == "__main__":
@@ -329,7 +365,35 @@ If convicted, Barrientos faces up to four years in prison.  Her next court appea
         end = time.time()
         print(f"✅ Test Detect Objects completed in {end - start:.2f} seconds.")
 
-    test_sentiment_analysis()
-    test_summarize_text()
-    test_depth_estimate()
-    test_detect_objects()
+    def test_classify_image():
+
+        print("Testing classify image...")
+
+        start = time.time()
+
+        # Sample input image
+        image_url = "https://img.freepik.com/free-photo/view-old-tree-lake-with-snow-covered-mountains-cloudy-day_181624-28954.jpg?w=1060&t=st=1707560650~exp=1707561250~hmac=3a61d03b525ab28fb6b50b08cf1e60218f86c0ad3adc863600b8086f80c627c0"
+
+        # Run image classification on the input image
+        predicted_classes, scores_percentages = classify_image(image_url)
+
+        # Save the results to a markdown file
+        file_name = "test/classify_image.md"
+        with open(file_name, "w") as file:
+            file.write("# Test Classify Image\n\n")
+            file.write("## Input Image\n\n")
+            file.write(f"![Input Image]({image_url})\n\n")
+            file.write("## Predicted Classes\n\n")
+            file.write("| Class | Confidence |\n")
+            file.write("|-------|-------|\n")
+            for i, (class_name, score) in enumerate(zip(predicted_classes, scores_percentages), 1):
+                file.write(f"| {class_name} | {score:.2f}% |\n")
+
+        end = time.time()
+        print(f"✅ Test Classify Image completed in {end - start:.2f} seconds.")
+
+    # test_sentiment_analysis()
+    # test_summarize_text()
+    # test_depth_estimate()
+    # test_detect_objects()
+    test_classify_image()
