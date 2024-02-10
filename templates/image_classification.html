@@ -1,0 +1,69 @@
+{% extends 'base.html' %} {% block title %}Image Classification{% endblock %} {%
+block page_title %}Image Classification{% endblock %}
+
+<!-- Description of the page -->
+{% block description_h2 %}Unlock Image Insights with Classification{% endblock
+%} {% block description_p %}
+<p>
+  Delve into the world of image analysis using Google's vit-base-patch16-224
+  model. Simply input the URL of the image you wish to explore, and witness the
+  model predict the classes and scores. The results include the input image
+  alongside the top three predicted classes and their corresponding scores.
+  Uncover the power of image classification with precision and ease.
+</p>
+{% endblock %} {%block content %}
+
+<!-- Form to accept image url -->
+<form action="/classify_image" method="POST" class="classify-form">
+  <input type="text" name="image_url" placeholder="Enter Image URL" required />
+  <input type="submit" value="Submit" />
+</form>
+
+<!-- Loading section -->
+{% include 'loading_section.html' %}
+
+<!-- Display the result = {input_image (base64), depth_image (base64)} -->
+{% if result %}
+<div class="classify-result">
+  <h2>Input Image</h2>
+  <img src="data:image/png;base64,{{ result.image }}" alt="Input Image" />
+
+  <!-- Table with columns as "Class", "Score" -->
+  <h2>Classes</h2>
+  <table>
+    <tr>
+      <th>Class</th>
+      <th>Score</th>
+    </tr>
+    {% for i in range(result.predicted_classes|length) %}
+    <tr>
+      <td>{{ result.predicted_classes[i] }}</td>
+      <td>{{ result.scores_percentages[i] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <p class="time">Elapsed Time: {{ result.elapsed_time }} seconds</p>
+</div>
+{% endif %}
+
+<!-- Back to Home button -->
+{% include 'back_to_home.html' %}
+
+<script>
+  // Get the form, loading section
+  const form = document.querySelector(".classify-form");
+  const loading = document.getElementById("loading");
+
+  // Hide loading section when page is loaded
+  window.addEventListener("load", () => {
+    loading.style.display = "none";
+  });
+
+  // Show loading section when form is submitted
+  form.addEventListener("submit", () => {
+    loading.style.display = "flex";
+  });
+</script>
+
+{% endblock %}

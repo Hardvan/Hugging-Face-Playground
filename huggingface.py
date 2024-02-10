@@ -169,6 +169,10 @@ def classify_image(image_url):
         image_url (str): The URL of the input image to classify.
 
     Returns:
+        list: A list of the top 3 predicted classes and their scores.
+            Structure: [class_1, class_2, class_3]
+        list: A list of the top 3 scores as percentages.
+            Structure: [score_1, score_2, score_3]
     """
 
     image = Image.open(requests.get(image_url, stream=True).raw)

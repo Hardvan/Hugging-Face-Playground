@@ -129,5 +129,37 @@ def object_detection():
     return render_template("object_detection.html")
 
 
+@app.route('/classify_image', methods=['GET', 'POST'])
+def classify_image():
+
+    if request.method == 'POST':
+
+        image_url = request.form['image_url']
+
+        start = time.time()
+        predicted_classes, scores_percentages = huggingface.classify_image(
+            image_url)
+        end = time.time()
+        elapsed_time = round(end - start, 2)
+
+        # Round scores to 2 decimal places and convert to string
+        scores_percentages = [
+            f'{round(score, 2)}%' for score in scores_percentages]
+
+        # Convert to base64
+        image = Image.open(requests.get(image_url, stream=True).raw)
+        image_base64 = image_to_base64(image)
+
+        result = {}
+        result['image'] = image_base64
+        result['predicted_classes'] = predicted_classes
+        result['scores_percentages'] = scores_percentages
+        result['elapsed_time'] = elapsed_time
+
+        return render_template("image_classification.html", result=result)
+
+    return render_template("image_classification.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
